@@ -1,0 +1,95 @@
+Explicación de cómo implementaste la herencia y el polimorfismo en tu solución.
+Ejemplos de ejecución que muestren el comportamiento polimórfico.
+
+Para la implementacion de herencia, hice que las clases estudiante, profesor, y personal, sean todas subclases de persona
+para que esto funcione, primero, a las 3 clases hijas le agrego lo siguiente en el nombre de la clase "extends Persona"
+por ejemplo, public class Personal extends Persona {}
+pero con eso no es suficiente, todavia falta agregar las variables de persona en el constructor de los hijos
+eso lo hice de la siguiente manera: 
+en la clase estudiante, mi constructor era el siguiente:
+
+    public Estudiante(String nombre, String apellido, int edad, String documento, String carrera, double promedio) {
+        super(nombre, apellido, edad, documento);
+        this.carrera = carrera;
+        this.promedio = promedio;
+    }
+
+hay que poner las variables del padre en el constructor en el orden que tenian en el constructor de persona, y ademas
+hay que poner     super(nombre, apellido, edad, documento);   para que funcione
+
+Para implementar el polimorfismo, primero hay que hacer una interfaz, en este caso es MiembroUniversidad
+en ella se declaran los metodos que se van a compartir entre distintas clases, (no llevan nada adentro, van vacios).
+despues, para que funcione esto, hay que incluir esos metodos dentro de cada clase que queremos incluir.
+voy a tomar de ejemplo la clase estudiante
+primero hay que cambiarle el nombre, agregandole "implements MiembroUniversidad", quedando asi:
+public class Estudiante extends Persona implements MiembroUniversidad {}
+
+despues al final del codigo, agregamos los metodos de la interfaz, que serian obtener rol, y mostrar informacion:
+
+    @Override
+    public String obtenerRol() {
+        return "Rol: Estudiante";
+    }
+    @Override
+    public String obtenerInformacionCompleta() {
+        return getNombre() + " " + getApellido()....
+    }
+
+Estos metodos los vamos cambiando segun la clase.
+
+para terminar de aplicar el concepto de polimorfismo, hay que explicar la clase universidad
+
+En la clase universidad, antes tenia un array llamado agregarcarrera, que solo podia trabajar con estudiantes.
+Pero, con el concepto de polimorfismo, podemos hacer que la clase universidad pueda incluir mas de una clase
+en este caso, profesor y personal.
+El nuevo array es el siguiente:
+
+    private MiembroUniversidad[] miembros = new MiembroUniversidad[50];
+
+Con el nuevo array se pueden hacer metodos que trabajen con varias clases a la vez.
+Por ejemplo en este metodo se puede cualquier miembro a la universidad (estudiante, profesor o personal)
+
+    public void agregarMiembro(MiembroUniversidad miembro) {
+        if(cantidadMiembros < miembros.length) {
+            miembros[cantidadMiembros] = miembro;
+            cantidadMiembros++;
+        } else {
+            System.out.println("No se pueden agregar más miembros");
+        }
+    }
+
+*update, el array de carreras volvio para una consigna mas adelante, asi que no lo borre al final
+--------------------------------------------------------------------------------------------------
+
+Compara los dos enfoques, calcular promedio   iterativo vs recursivo
+
+Compara los dos enfoques, contar estudiantes por carrera  iterativo vs recursivo
+
+Compara los dos enfoques, buscar un estudiante por documento   iterativo vs recursivo
+
+
+Mi conclusion es la misma para los 3 casos. Lo que note yo es que el enfoque iterativo es mucho mas 
+simple y practico que el recursivo. Capaz, es porque estoy acostumbrado a hacer bucles comunes, pero
+se me hizo confuso implementar la recursividad para resolver las consignas.
+para estos casos en especifico, no veo la necesidad de usar recursividad, porque los dos parece que 
+hacen lo mismo pero usando recursividad es mas complejo. 
+
+--------------------------------------------------------------------------------------------------
+
+Explicación de las ventajas y desventajas de cada enfoque (recursivo vs iterativo).
+
+
+Probé los dos enfoques y para calcular promedios, contar estudiantes o buscar por documento,
+el enfoque iterativo es más simple y práctico. La recursividad funciona, pero es más complicada
+e investigando un poco me encontre con que suele consumir más memoria. En general, lo iterativo
+sirve para tareas lineales y lo recursivo para problemas que se pueden dividir en muchos subproblemas.
+
+
+
+
+
+
+
+
+
+
